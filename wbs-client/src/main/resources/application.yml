@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: wbs-client
+  main:
+    banner-mode: "OFF"
+
+server:
+  port: 8002
+
+ws:
+  port: 8001
+  path: /wbs
+  send-interval: 2
