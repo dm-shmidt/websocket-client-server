@@ -6,6 +6,9 @@ spring:
 
 server:
   port: 8002
+  ssl:
+    trust-store: classpath:wbs-client-server.jks
+    trust-store-password: StrongPsw321
 
 ws:
   port: 8001

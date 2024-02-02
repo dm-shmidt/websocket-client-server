@@ -13,6 +13,7 @@ public class ClientLogic {
     public void doLogic(Client client, long sendInterval) {
         Flux.interval(Duration.ofSeconds(sendInterval))
             .doOnNext(n -> client.send("Test message " + MESSAGE_ID.getAndIncrement()))
+            .takeWhile(n -> n < 3)
             .subscribe();
     }
 }

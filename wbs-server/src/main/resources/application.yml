@@ -17,6 +17,12 @@ spring:
 
 server:
   port: 8001
+  ssl:
+    key-store-type: JKS
+    key-store: classpath:wbs-client-server.jks
+    key-store-password: StrongPsw321
+    key-alias: wbs-client-server
+    enabled: true
 
 ws:
   path: /wbs

@@ -14,7 +14,7 @@ import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAd
 public class ServerConfiguration {
 
     @Value("${ws.path}")
-    private String samplePath;
+    private String wsPath;
 
     @Bean
     public ServerHandler serverHandler() {
@@ -24,7 +24,7 @@ public class ServerConfiguration {
     @Bean
     public HandlerMapping handlerMapping(ServerHandler serverHandler) {
         Map<String, WebSocketHandler> handlerByPathMap = new HashMap<>();
-        handlerByPathMap.put(samplePath, serverHandler);
+        handlerByPathMap.put(wsPath, serverHandler);
 
         SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
         handlerMapping.setUrlMap(handlerByPathMap);

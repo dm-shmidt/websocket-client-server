@@ -55,7 +55,6 @@ public class Client {
 
   private void onOpen(WebSocketSession session) {
     this.session = session;
-
     log.info("Session opened");
   }
 
