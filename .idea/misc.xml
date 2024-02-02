@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/../wbs-client/pom.xml" />
         <option value="$PROJECT_DIR$/wbs-client/pom.xml" />
         <option value="$PROJECT_DIR$/wbs-server/pom.xml" />
+        <option value="$PROJECT_DIR$/model/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

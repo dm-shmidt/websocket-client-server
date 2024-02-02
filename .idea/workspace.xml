@@ -4,23 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cae682e-cd0d-4f75-b755-85cb677b741b" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wbs-client/src/main/resources/wbs-client-server.jks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wbs-server/src/main/resources/wbs-client-server.jks" afterDir="false" />
+    <list default="true" id="6cae682e-cd0d-4f75-b755-85cb677b741b" name="Changes" comment="tls">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/main/java/org/dms/dto/InfoDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wbs-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/ClientComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/ClientComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/ClientLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/ClientLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wbs-client/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-client/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wbs-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wbs-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerLogic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Record" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,16 +64,17 @@
     "Spring Boot.WbsServerApplication.executor": "Run",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/dms/dev/learn/wbs-client-server/wbs-server/src/main/resources",
+    "last_opened_file_path": "/home/dms/dev/learn/wbs-client-server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/home/dms/dev/learn/wbs-client-server/model/src/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -77,9 +83,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient" />
+      <recent name="$PROJECT_DIR$/model/src" />
+      <recent name="$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver" />
       <recent name="$PROJECT_DIR$/wbs-server/src/main/resources" />
       <recent name="$PROJECT_DIR$/wbs-client/src/main/resources" />
-      <recent name="$PROJECT_DIR$/wbs-server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/wbs-server/src/main/resources" />
@@ -134,7 +142,7 @@
       <option name="presentableId" value="Default" />
       <updated>1706885115021</updated>
       <workItem from="1706885116052" duration="879000" />
-      <workItem from="1706886002726" duration="11804000" />
+      <workItem from="1706886002726" duration="17289000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -168,7 +176,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706886121487</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="tls">
+      <option name="closed" value="true" />
+      <created>1706899187697</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706899187697</updated>
+    </task>
+    <task id="LOCAL-00006" summary="tls">
+      <option name="closed" value="true" />
+      <created>1706899209103</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706899209103</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +211,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="tls" />
+    <option name="LAST_COMMIT_MESSAGE" value="tls" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -199,8 +224,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/wbs-client/src/main/java/org/dms/wbsclient/client/ClientComponent.java</url>
-          <line>86</line>
+          <line>83</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerConfiguration.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/wbs-server/src/main/java/org/dms/wbsserver/server/ServerLogic.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
