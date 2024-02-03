@@ -2,6 +2,7 @@ package org.dms.wbsserver.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,18 +12,14 @@ import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 
 @Configuration
+@RequiredArgsConstructor
 public class ServerConfiguration {
 
     @Value("${ws.path}")
     private String wsPath;
 
     @Bean
-    public ServerHandler serverHandler() {
-        return new ServerHandler();
-    }
-
-    @Bean
-    public HandlerMapping handlerMapping(ServerHandler serverHandler) {
+    public HandlerMapping handlerMapping(final ServerHandler serverHandler) {
         Map<String, WebSocketHandler> handlerByPathMap = new HashMap<>();
         handlerByPathMap.put(wsPath, serverHandler);
 
