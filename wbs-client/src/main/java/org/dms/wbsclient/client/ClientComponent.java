@@ -12,8 +12,6 @@ import java.util.Objects;
 import javax.net.ssl.KeyManagerFactory;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
@@ -24,7 +22,7 @@ import reactor.core.scheduler.Schedulers;
 import reactor.netty.http.client.HttpClient;
 
 @Component
-public class ClientComponent implements ApplicationListener<ApplicationReadyEvent> {
+public class ClientComponent implements ApplicationListener<RunFetchingEvent> {
 
   private final ConfigurableApplicationContext applicationContext;
 
@@ -48,7 +46,7 @@ public class ClientComponent implements ApplicationListener<ApplicationReadyEven
   }
 
   @Override
-  public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {
+  public void onApplicationEvent(@NonNull RunFetchingEvent event) {
     HttpClient httpClient = HttpClient.create().secure(spec ->
         spec.sslContext(Objects.requireNonNull(getSslContext())));
 
@@ -61,11 +59,10 @@ public class ClientComponent implements ApplicationListener<ApplicationReadyEven
     new ClientLogic().doLogic(client, sendInterval);
 
     Mono
-        .delay(Duration.ofSeconds(10))
+        .delay(Duration.ofSeconds(event.getSecondsToFetch()))
         .publishOn(Schedulers.boundedElastic())
         .subscribe(value -> {
           client.disconnect();
-          SpringApplication.exit(applicationContext, () -> 0);
         });
   }
 

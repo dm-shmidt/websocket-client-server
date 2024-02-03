@@ -9,6 +9,11 @@ server:
   ssl:
     trust-store: classpath:wbs-client-server.jks
     trust-store-password: StrongPsw321
+    key-store-type: JKS
+    key-store: classpath:wbs-client-server.jks
+    key-store-password: StrongPsw321
+    key-alias: wbs-client-server
+    enabled: true
 
 ws:
   port: 8001
