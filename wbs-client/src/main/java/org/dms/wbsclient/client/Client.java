@@ -14,7 +14,6 @@ public class Client {
 
   private Sinks.Many<String> sendBuffer;
   private Disposable subscription;
-  private WebSocketSession session;
 
   public void connect(WebSocketClient webSocketClient, URI uri) {
     sendBuffer = Sinks.many().unicast().onBackpressureBuffer();
@@ -22,7 +21,6 @@ public class Client {
     subscription =
         webSocketClient
             .execute(uri, this::handleSession)
-            .then(Mono.fromRunnable(this::onClose))
             .subscribe();
 
     log.info("Client connected.");
@@ -32,10 +30,7 @@ public class Client {
     if (subscription != null && !subscription.isDisposed()) {
       subscription.dispose();
       subscription = null;
-
-      onClose();
     }
-
     log.info("Client disconnected.");
   }
 
@@ -44,7 +39,6 @@ public class Client {
   }
 
   private Mono<Void> handleSession(WebSocketSession session) {
-    onOpen(session);
 
     return session
         .send(sendBuffer
@@ -53,14 +47,8 @@ public class Client {
         .then();
   }
 
-  private void onOpen(WebSocketSession session) {
-    this.session = session;
-    log.info("Session opened");
-  }
 
-  private void onClose() {
-    session = null;
-
-    log.info("Session closed");
+  public Disposable subscription() {
+    return subscription;
   }
 }

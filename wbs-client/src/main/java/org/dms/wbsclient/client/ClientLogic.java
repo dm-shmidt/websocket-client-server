@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import org.dms.dto.CpuUsageDto;
 import org.dms.wbsclient.CpuInfo;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 public class ClientLogic {
 
@@ -16,17 +17,24 @@ public class ClientLogic {
   public void doLogic(Client client, long sendInterval) {
 
     Flux.interval(Duration.ofSeconds(sendInterval))
+        .publishOn(Schedulers.boundedElastic())
+        .takeUntil(n -> isSubscriptionClosed(client))
         .doOnNext(n -> {
           try {
-            client.send(
-                mapper.writeValueAsString(
-                    new CpuUsageDto(LocalDateTime.now(), CpuInfo.getCpuUsage())));
+            if (!isSubscriptionClosed(client)) {
+              client.send(
+                  mapper.writeValueAsString(
+                      new CpuUsageDto(LocalDateTime.now(), CpuInfo.getCpuUsage())));
+            }
           } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
           }
         })
-        .takeWhile(n -> n < 5)
         .subscribe();
+  }
+
+  private boolean isSubscriptionClosed(Client client) {
+    return client.subscription() == null || client.subscription().isDisposed();
   }
 
 }
