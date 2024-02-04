@@ -68,7 +68,13 @@ public class ClientComponent implements ApplicationListener<RunFetchingEvent> {
 
   private URI getURI() {
     try {
-      return new URI("wss://localhost:" + serverPort + wsPath);
+      String host;
+      if (System.getenv("host") == null) {
+        host = "127.0.0.1";
+      } else {
+        host = System.getenv("host");
+      }
+      return new URI("wss://" + host + ":" + serverPort + wsPath);
     } catch (URISyntaxException USe) {
       throw new IllegalArgumentException(USe);
     }
