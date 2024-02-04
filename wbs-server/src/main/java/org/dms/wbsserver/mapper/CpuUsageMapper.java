@@ -11,9 +11,8 @@ import org.mapstruct.Mapping;
 @Mapper(uses = DateTimeFormatter.class)
 public interface CpuUsageMapper {
 
+  @Mapping(target = "id", ignore = true)
   CpuUsage toEntity(CpuUsageDto cpuUsageDto);
-
-  CpuUsageDto toDto(CpuUsage cpuUsage);
 
   @Mapping(target = "time", expression = "java(dateTimeToString(cpuUsage.getDateTime()))")
   CpuUsageInfoDto toCpuUsageInfo(CpuUsage cpuUsage);
