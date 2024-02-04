@@ -10,17 +10,28 @@ import {HttpClient} from "@angular/common/http";
 export class AppComponent {
   title = 'web-ui';
   data!: CpuUsageInfo[]
+  seconds!: bigint;
   minutes!: bigint;
+  enableFetch: boolean = true
 
-  baseUrl = "https://localhost:8001/cpu-usage/";
+  serverBaseUrl = "https://localhost:8001/cpu-usage/";
+  clientBaseUrl = "https://localhost:8002/run/";
 
   constructor(public httpClient: HttpClient) {
   }
 
+  public recordCpuUsage() {
+    this.enableFetch = false;
+    this.httpClient.get(this.clientBaseUrl + this.seconds.toString())
+    .subscribe();
+    setTimeout(() => {
+      this.enableFetch = true;
+    }, Number(this.seconds)*1000);
+  }
+
   public getData() {
-    this.httpClient.get<CpuUsageInfo[]>(this.baseUrl + this.minutes.toString())
+    this.httpClient.get<CpuUsageInfo[]>(this.serverBaseUrl + this.minutes.toString())
     .subscribe((results) => {
-      console.log('Data is received - Result - ', results);
       this.data = results;
     });
   }

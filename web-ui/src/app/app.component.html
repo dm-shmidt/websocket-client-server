@@ -2,14 +2,29 @@
   <div class="container">
     <h3 class="display-5 text-center mb-5">Get CPU Usage Info</h3>
     <!-- Input group -->
-    <div class="d-flex justify-content-center">
-      <div class="input-group w-auto">
-        <input type="number" [(ngModel)]="minutes" class="form-control"
-               id="minutes"
-               placeholder="Enter minutes to check...">
-        <button (click)="getData()" class="btn btn-primary btn-block btn-lg">Get
-        </button>
+    <div class="row">
+      <div class="d-flex justify-content-center">
+        <div class="input-group w-auto">
+          <input type="number" [(ngModel)]="seconds" class="form-control"
+                 id="seconds"
+                 placeholder="Seconds to record cpu usage...">
+          <button (click)="recordCpuUsage()" class="btn btn-primary btn-block btn-lg"
+                  [disabled]="!enableFetch">Run
+          </button>
+        </div>
       </div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+      <div class="d-flex justify-content-center">
+        <div class="input-group w-auto">
+          <input type="number" [(ngModel)]="minutes" class="form-control"
+                 id="minutes"
+                 placeholder="Enter minutes to check...">
+          <button (click)="getData()" class="btn btn-primary btn-block btn-lg">Get
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
