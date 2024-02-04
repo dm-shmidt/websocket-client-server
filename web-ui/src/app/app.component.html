@@ -1,0 +1,31 @@
+<div class="jumbotron hero">
+  <div class="container">
+    <h3 class="display-5 text-center mb-5">Get CPU Usage Info</h3>
+    <!-- Input group -->
+    <div class="d-flex justify-content-center">
+      <div class="input-group w-auto">
+        <input type="number" [(ngModel)]="minutes" class="form-control"
+               id="minutes"
+               placeholder="Enter minutes to check...">
+        <button (click)="getData()" class="btn btn-primary btn-block btn-lg">Get
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <table class="table">
+    <thead class="thead-light">
+    <tr>
+      <th>Time</th>
+      <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cpuUsage of data">
+      <td>{{ cpuUsage.time }}</td>
+      <td>{{ cpuUsage.value }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
