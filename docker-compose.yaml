@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+
+  server:
+    build: wbs-server/
+    image: "wbs-server"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        delay: 5s
+    links:
+      - postgres
+    environment:
+      DB_HOST: postgres
+    ports:
+      - "8001:8001"
+    depends_on:
+      - postgres
+
+  client:
+    build: wbs-client/
+    image: "wbs-client"
+    links:
+      - server
+    environment:
+      SERVER_HOST: server
+    depends_on:
+      - server
+    ports:
+      - "8002:8002"
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wbs_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+    driver: local

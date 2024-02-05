@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import org.dms.dto.CpuUsageDto;
 import org.dms.wbsclient.CpuInfo;
 import reactor.core.publisher.Flux;
@@ -24,7 +25,8 @@ public class ClientLogic {
             if (!isSubscriptionClosed(client)) {
               client.send(
                   mapper.writeValueAsString(
-                      new CpuUsageDto(LocalDateTime.now(), CpuInfo.getCpuUsage())));
+                      new CpuUsageDto(LocalDateTime.now(ZoneId.of("Europe/Prague")),
+                          CpuInfo.getCpuUsage())));
             }
           } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

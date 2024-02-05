@@ -1,22 +1,15 @@
 # Web socket client-server
 
 # Pre-requisites
-**Up and running postgres with:**
-* db: wbs_db
-* user: postgres
-* password: postgres
+**Installed Node.js version v18.19.0.**
 
-**Installed Node.js version v18.19.0**
-
-## How to build
+## How to run
 From **websocket-client-server** module run 
-* mvn clean install
+* `mvn clean install -DskipTests`
+* `docker compose up`
+* from web-ui directory: `ng -serve -o`
 
-## Running
-
-* java -jar wbs-server/target/wbs-server-1.0.jar
-* java -jar wbs-client/target/wbs-client-1.0.jar
-* from web-ui directory: ng -serve -o
+Tp stop the services: Ctrl+C in terminal and `docker compose down`
 
 **Note: for Chrome browser paste https://localhost:8001/cpu-usage/1 and confirm accepting self-signed 
 certificate; do the same with https://localhost:8002/run/10 for the same reason.** 

@@ -5,7 +5,7 @@ spring:
     banner-mode: "OFF"
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/wbs_db
+    url: jdbc:postgresql://${DB_HOST}:5432/wbs_db
     username: postgres
     password: postgres
   jpa:
