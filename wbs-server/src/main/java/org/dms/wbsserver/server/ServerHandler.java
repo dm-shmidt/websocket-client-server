@@ -11,7 +11,8 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class ServerHandler implements WebSocketHandler {
 
-  private  final ServerLogic serverLogic;
+  private final ServerLogic serverLogic;
+
   @Override
   @NonNull
   public Mono<Void> handle(@NonNull WebSocketSession session) {

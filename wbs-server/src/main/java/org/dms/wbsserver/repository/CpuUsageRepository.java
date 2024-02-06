@@ -10,4 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface CpuUsageRepository extends JpaRepository<CpuUsage, Long> {
 
   List<CpuUsage> findByDateTimeAfter(LocalDateTime after);
+
+  List<CpuUsage> findFirst100ByOrderByIdDesc();
+
+  void deleteAllByIdNotIn(List<Long> idsToRetain);
 }

@@ -30,7 +30,6 @@ public class ServerLogic {
             .map(WebSocketMessage::getPayloadAsText)
             .publishOn(Schedulers.boundedElastic())
             .doOnNext(message -> {
-
               try {
                 final var infoDto = mapper.readValue(message, CpuUsageDto.class);
                 cpuUsageService.saveCpuUsage(infoDto);
