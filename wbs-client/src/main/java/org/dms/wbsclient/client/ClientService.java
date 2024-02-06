@@ -10,19 +10,17 @@ import java.security.KeyStore;
 import java.time.Duration;
 import java.util.Objects;
 import javax.net.ssl.KeyManagerFactory;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
 import org.springframework.web.reactive.socket.client.WebSocketClient;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import reactor.netty.http.client.HttpClient;
 
-@Component
-public class ClientComponent implements ApplicationListener<RunFetchingEvent> {
+@Service
+public class ClientService {
 
   private final ConfigurableApplicationContext applicationContext;
 
@@ -44,12 +42,11 @@ public class ClientComponent implements ApplicationListener<RunFetchingEvent> {
   @Value("${server.ssl.trust-store-password}")
   private String trustStorePassword;
 
-  public ClientComponent(ConfigurableApplicationContext applicationContext) {
+  public ClientService(ConfigurableApplicationContext applicationContext) {
     this.applicationContext = applicationContext;
   }
 
-  @Override
-  public void onApplicationEvent(@NonNull RunFetchingEvent event) {
+  public void runClient(Integer seconds) {
     HttpClient httpClient = HttpClient.create().secure(spec ->
         spec.sslContext(Objects.requireNonNull(getSslContext())));
 
@@ -62,11 +59,9 @@ public class ClientComponent implements ApplicationListener<RunFetchingEvent> {
     new ClientLogic().doLogic(client, sendInterval);
 
     Mono
-        .delay(Duration.ofSeconds(event.getSecondsToFetch()))
+        .delay(Duration.ofSeconds(seconds))
         .publishOn(Schedulers.boundedElastic())
-        .subscribe(value -> {
-          client.disconnect();
-        });
+        .subscribe(value -> client.disconnect());
   }
 
   private URI getURI() {
