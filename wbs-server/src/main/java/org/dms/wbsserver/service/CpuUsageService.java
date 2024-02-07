@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +28,10 @@ public class CpuUsageService {
   }
 
   public Mono<List<CpuUsageInfoDto>> getCpuUsage(long minutes) {
-    return Mono.just(
-        cpuUsageRepository.findByDateTimeAfter(LocalDateTime.now().minusMinutes(minutes))
-            .stream().map(cpuUsageMapper::toCpuUsageInfo).toList());
+    return Mono.fromCallable(() ->
+            cpuUsageRepository.findByDateTimeAfter(LocalDateTime.now().minusMinutes(minutes))
+                .stream().map(cpuUsageMapper::toCpuUsageInfo).toList())
+        .subscribeOn(Schedulers.boundedElastic());
   }
 
   @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
