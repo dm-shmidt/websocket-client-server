@@ -19,4 +19,4 @@ ws:
   server-host: ${SERVER_HOST}
   port: 8001
   path: /wbs
-  send-interval: 2
+  send-interval: 1

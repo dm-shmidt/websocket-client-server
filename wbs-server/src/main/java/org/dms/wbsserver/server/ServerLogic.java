@@ -32,7 +32,7 @@ public class ServerLogic {
             .doOnNext(message -> {
               try {
                 final var infoDto = mapper.readValue(message, CpuUsageDto.class);
-                cpuUsageService.saveCpuUsage(infoDto);
+                cpuUsageService.saveCpuUsage(infoDto).subscribe();
                 logger.info("Server -> received from client id=[{}]: [{}]",
                     session.getId(), infoDto.toString());
 

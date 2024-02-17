@@ -10,6 +10,7 @@ import java.security.KeyStore;
 import java.time.Duration;
 import java.util.Objects;
 import javax.net.ssl.KeyManagerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import reactor.core.scheduler.Schedulers;
 import reactor.netty.http.client.HttpClient;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
   private final ConfigurableApplicationContext applicationContext;
@@ -41,10 +43,6 @@ public class ClientService {
 
   @Value("${server.ssl.trust-store-password}")
   private String trustStorePassword;
-
-  public ClientService(ConfigurableApplicationContext applicationContext) {
-    this.applicationContext = applicationContext;
-  }
 
   public void runClient(Integer seconds) {
     HttpClient httpClient = HttpClient.create().secure(spec ->

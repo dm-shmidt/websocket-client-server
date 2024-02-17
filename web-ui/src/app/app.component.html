@@ -7,9 +7,10 @@
         <div class="input-group w-auto">
           <input type="number" [(ngModel)]="seconds" class="form-control"
                  id="seconds"
-                 placeholder="Seconds to record cpu usage...">
+                 placeholder="Record cpu usage (5 - 60 sec.)"
+                 [disabled]="!enableFetch">
           <button (click)="recordCpuUsage()" class="btn btn-primary btn-block btn-lg"
-                  [disabled]="!enableFetch">Run
+                  [disabled]="!enableFetch || !seconds">Run
           </button>
         </div>
       </div>

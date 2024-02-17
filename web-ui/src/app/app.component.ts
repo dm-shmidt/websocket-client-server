@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CpuUsageInfo} from "./cpu-usage-info";
 import {HttpClient} from "@angular/common/http";
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,12 +22,17 @@ export class AppComponent {
   }
 
   public recordCpuUsage() {
+    const timeout = Number(this.seconds);
+    const subscribe = timer(0, 1000)
+    .subscribe(val => this.seconds = BigInt(timeout - val));
     this.enableFetch = false;
     this.httpClient.get(this.clientBaseUrl + this.seconds.toString())
     .subscribe();
     setTimeout(() => {
+      subscribe.unsubscribe();
+      this.seconds = BigInt(0);
       this.enableFetch = true;
-    }, Number(this.seconds)*1000);
+    }, timeout * 1000);
   }
 
   public getData() {

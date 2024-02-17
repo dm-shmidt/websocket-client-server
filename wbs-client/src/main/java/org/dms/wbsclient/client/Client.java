@@ -11,7 +11,6 @@ import reactor.core.publisher.Sinks;
 @Slf4j
 public class Client {
 
-
   private Sinks.Many<String> sendBuffer;
   private Disposable subscription;
 

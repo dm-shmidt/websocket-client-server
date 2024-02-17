@@ -1,7 +1,6 @@
 package org.dms.wbsserver.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import org.dms.dto.CpuUsageDto;
@@ -12,6 +11,7 @@ import org.dms.wbsserver.repository.CpuUsageRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -23,24 +23,26 @@ public class CpuUsageService {
   private final CpuUsageMapper cpuUsageMapper;
 
   @Transactional
-  public void saveCpuUsage(CpuUsageDto dto) {
-    cpuUsageRepository.save(cpuUsageMapper.toEntity(dto));
+  public Mono<CpuUsage> saveCpuUsage(CpuUsageDto dto) {
+    return cpuUsageRepository.save(cpuUsageMapper.toEntity(dto));
   }
 
-  public Mono<List<CpuUsageInfoDto>> getCpuUsage(long minutes) {
-    return Mono.fromCallable(() ->
-            cpuUsageRepository.findByDateTimeAfter(LocalDateTime.now().minusMinutes(minutes))
-                .stream().map(cpuUsageMapper::toCpuUsageInfo).toList())
-        .subscribeOn(Schedulers.boundedElastic());
+  public Flux<CpuUsageInfoDto> getCpuUsage(long minutes) {
+    return cpuUsageRepository.findByDateTimeAfter(LocalDateTime.now().minusMinutes(minutes))
+        .map(cpuUsageMapper::toCpuUsageInfo);
   }
 
   @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
-  @Transactional
-  void cleanUpDatabase() {
-    if (cpuUsageRepository.count() > 100) {
-      final var idsToRetain = cpuUsageRepository.findFirst100ByOrderByIdDesc()
-          .stream().map(CpuUsage::getId).toList();
-      cpuUsageRepository.deleteAllByIdNotIn(idsToRetain);
-    }
+  public void cleanUpDatabase() {
+    cpuUsageRepository.count()
+        .publishOn(Schedulers.boundedElastic())
+        .map(count -> {
+          if (count > 100) {
+            final var idsToRetain = cpuUsageRepository.findFirst100ByOrderByIdDesc()
+                .map(CpuUsage::getId).collectList().block();
+            return cpuUsageRepository.deleteAllByIdNotIn(idsToRetain).subscribe();
+          }
+          return Mono.empty().subscribe();
+        }).subscribe();
   }
 }
