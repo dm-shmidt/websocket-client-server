@@ -6,7 +6,7 @@
 ## How to run
 From **websocket-client-server** module run 
 * `mvn clean install -DskipTests`
-* `docker compose up`
+* `docker compose up --build`
 * from web-ui directory: `ng -serve -o`
 
 Tp stop the services: Ctrl+C in terminal and `docker compose down`

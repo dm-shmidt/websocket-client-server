@@ -1,7 +1,8 @@
-package org.dms.wbsserver.server;
+package org.dms.wbsserver.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.dms.wbsserver.server.ServerLogic;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketSession;

@@ -10,9 +10,12 @@
     <version>1.0</version>
   </parent>
 
+  <properties>
+    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+  </properties>
+
   <artifactId>model</artifactId>
-  <version>1.0</version>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>model</name>
 
 </project>

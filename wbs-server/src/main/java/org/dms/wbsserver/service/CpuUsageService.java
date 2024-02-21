@@ -28,7 +28,7 @@ public class CpuUsageService {
   }
 
   public Flux<CpuUsageInfoDto> getCpuUsage(long minutes) {
-    return cpuUsageRepository.findByDateTimeAfter(LocalDateTime.now().minusMinutes(minutes))
+    return cpuUsageRepository.findByDateTimeAfterOrderByDateTimeDesc(LocalDateTime.now().minusMinutes(minutes))
         .map(cpuUsageMapper::toCpuUsageInfo);
   }
 

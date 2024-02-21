@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 public interface CpuUsageRepository extends ReactiveCrudRepository<CpuUsage, Long> {
 
-  Flux<CpuUsage> findByDateTimeAfter(LocalDateTime after);
+  Flux<CpuUsage> findByDateTimeAfterOrderByDateTimeDesc(LocalDateTime after);
 
   Flux<CpuUsage> findFirst100ByOrderByIdDesc();
 

@@ -1,4 +1,4 @@
-package org.dms.wbsserver.server;
+package org.dms.wbsserver.config;
 
 import java.util.HashMap;
 import java.util.Map;
